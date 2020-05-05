@@ -339,3 +339,73 @@ ________________________________________________________________________________
   - 0xC000013A (-1073741510)  ==  The user canceled the test execution by pressing Ctrl+C.
 -------------------------------------------------------------------------------------------
 ### JetBrains Rider (cross-platform)
+#### Create a test project
+  - Example below is a project called Sandbox with a class Calculator
+___________________________________________________________________________________________namespace Sandbox
+{
+   public class Calculator
+   {
+       public static int Add(int x, int y) => x + y;
+       public static int Subtract(int x, int y) => x - y;
+   }
+}
+___________________________________________________________________________________________
+  - to test the calculator:
+    - creating a project for our xUnit.net tests
+      - In the Solution Explorer
+      - right-click the solution
+      - choose Add > New Project...
+    - Choose the Unit Test Project template targeting .NET 4.5.2 or later
+      - select xUnit as the project type
+      - provide some telling name for it, e.g. Tests
+    - Click Create
+      - the new test project with all necessary configurations and references will be added to our solution.
+
+#### Write your first tests
+  - default new file is names Tests.cs
+    - example code below:
+___________________________________________________________________________________________
+using Sandbox;
+using Xunit;
+
+namespace Tests
+{
+   public class Tests
+   {
+       [Fact]
+       public void PassingTest()
+       {
+           Assert.Equal(4, Calculator.Add(2, 2));
+       }
+
+       [Fact]
+       public void FailingTest()
+       {
+           Assert.Equal(5, Calculator.Add(2, 2));
+       }
+   }
+}
+___________________________________________________________________________________________
+* If you copy-pasted the above code to the Tests.cs file, the Calculator usage will be highlighted as unresolved because the Sandbox project is not referenced in our test project. You can press Alt+Enter on the highlighted usage to add the missing project reference.
+
+  - click the unit test icon next to the test class and choose Run All to run all tests in that class
+  - Unit test results will populate in a window
+    - PassingTest = pass
+    - FailingTest = fail
+
+#### Writw your first theory
+  - xUnit.net includes support for two different major types of unit tests: facts and theories.
+    - Facts are tests which are always true. They test invariant conditions.
+    - Theories are tests which are only true for a particular set of data.
+  - below is an example of a failed theory:
+___________________________________________________________________________________________
+[Theory]
+[InlineData(2, 2, 4)]
+[InlineData(3, 3, 6)]
+[InlineData(2, 2, 5)]
+public void MyTheory(int x, int y, int sum)
+{
+   Assert.Equal(sum, Calculator.Add(x, y));
+}
+___________________________________________________________________________________________
+  - to run additional unit tests in the Solution Explorer, right-click on it and choose Run Unit Tests. Or alternatively, you can browse all tests in the solution on the Explorer tab of the Unit Tests window and run tests from there.
