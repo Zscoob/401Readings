@@ -409,3 +409,286 @@ public void MyTheory(int x, int y, int sum)
 }
 ___________________________________________________________________________________________
   - to run additional unit tests in the Solution Explorer, right-click on it and choose Run Unit Tests. Or alternatively, you can browse all tests in the solution on the Explorer tab of the Unit Tests window and run tests from there.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Universal Windows Apps (UWP) – Windows 10 applications
+
+### Using Devices Runner
+  - File -> New Project and create a Blank UWP project
+  - Add the xunit.runner.devices package. If you want unit tests in this project, also add xunit
+  - Replace App.xaml and App.xaml.cs with the following (using your namespace in x:Class)
+    - App.xaml 
+___________________________________________________________________________________________
+<ui:RunnerApplication
+    x:Class="UwpTestRunner.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:Xunit.Runners.UI"
+    RequestedTheme="Light">
+</ui:RunnerApplication>      
+___________________________________________________________________________________________
+  - App.xaml.cs
+___________________________________________________________________________________________
+using System.Reflection;
+using Xunit.Runners.UI;
+namespace UwpTestRunner
+{
+    sealed partial class App : RunnerApplication
+    {
+        protected override void OnInitializeRunner()
+        {
+            // tests can be inside the main assembly
+            AddTestAssembly(GetType().GetTypeInfo().Assembly);
+            // otherwise you need to ensure that the test assemblies will
+            // become part of the app bundle
+            // AddTestAssembly(typeof(PortableTests).GetTypeInfo().Assembly);
+        }
+    }
+}
+___________________________________________________________________________________________
+  - Delete MainPage.xaml and MainPage.xaml.cs
+  - Add your unit tests
+  - (optional) If your tests are in other assemblies, add a project reference and modify the App.xaml.cs to include the assembly containing your tests
+  - (optional) Add a xunit.runner.json file as Content to specify runner configuration
+
+-------------------------------------------------------------------------------------------
+### Using Visual Studio Test Explorer
+
+#### Create a unit test project
+* Visual Studop 2015 or later has the Universal Windows Application tooling
+  
+  - Open Visual Studio, and choose File > New > Project
+    - Unite Test App (Universal Windows)
+      - This creates a unit test project with a reference to MSTest which 
+      - remove by deleting the reference to MSTestFramework.Universal
+#### Add a reference to xUnit.net
+  - within Solution Explorer
+  - find/open project.json
+  - add dependencies on packages:
+    - xunit
+    - xunit.rummer.visualstudio
+  - example below
+___________________________________________________________________________________________
+{
+  "dependencies": {
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "xunit": "2.1.0",
+    "xunit.runner.visualstudio": "2.1.0"
+  },
+  "frameworks": {
+    "uap10.0": { }
+  },
+  "runtimes": {
+    "win10-arm": { },
+    "win10-arm-aot": { },
+    "win10-x86": { },
+    "win10-x86-aot": { },
+    "win10-x64": { },
+    "win10-x64-aot": { }
+  }
+}
+___________________________________________________________________________________________
+#### Write your first tests
+  - In the created project UnitTest.cs was auto-created and opened
+  - replace contents with the following
+___________________________________________________________________________________________
+using Xunit;
+
+namespace MyFirstUWPTests
+{
+    public class UnitTest
+    {
+        [Fact]
+        public void PassingTest()
+        {
+            Assert.Equal(4, Add(2, 2));
+        }
+
+        [Fact]
+        public void FailingTest()
+        {
+            Assert.Equal(5, Add(2, 2));
+        }
+
+        int Add(int x, int y)
+        {
+            return x + y;
+        }
+    }
+}
+___________________________________________________________________________________________
+  - build the solution to make sure the code compiles
+
+#### Running tests with Visual Studio
+  - The xunit.runner.visualstudio package that you added earlier allows you to run the tests inside of Visual Studio
+  - to see tests
+    - ensure code has been compiled
+    - show Test Explorer (Test > Windows > Test Explorer)
+    - choose runtime environment 
+      - Local Machine (Only Win10)
+      - Mobile Emulator (VMs that run WinMobile10)
+    - Once selected click "Run All"
+      - unit test app launch on local machine
+      - Windows Mobile 10 UI pop up
+    - Once tests have finished results will populate in the Test Explorer UI
+
+#### Write your first theory
+  - xUnit.net includes support for two different major types of unit tests: facts and theories.
+    - Facts are tests which are always true. They test invariant conditions.
+    - Theories are tests which are only true for a particular set of data.
+  - below is an example of a failed theory:
+___________________________________________________________________________________________
+[Theory]
+[InlineData(3)]
+[InlineData(5)]
+[InlineData(6)]
+public void MyFirstTheory(int value)
+{
+    Assert.True(IsOdd(value));
+}
+
+bool IsOdd(int value)
+{
+    return value % 2 == 1;
+}
+___________________________________________________________________________________________
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Xamarin – Android and iOS applications
+### Getting Started with xUnit.net
+#### Xamarin Android and iOS with the Devices Runner
+  - If you want to run your xUnit tests on a supported device, then the device runners are the way to do it. Running unit tests on a device is the surest way to ensure correct behavior, after things like Ahead of Time (AOT) compilation, .NET Native or other device-specific transformations happen. There’s simply no substitute for running “on the metal.”
+#### The general pattern
+  - xUnit for Devices projects all follow a similar approach: create a new blank application to host the runner, add xunit.runner.devices and tell it which assemblies contain your unit tests. The unit tests may live directly within the application you created or in other referenced libraries, including PCLs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Misc Topics
+### What NuGet packages should I use?
+#### Packages for writing tests
+  - xunit
+    - This is the package that will most typically be used by unit test authors.
+    - It brings in references to xunit.core (which contains the unit testing framework)
+    - xunit.analyzers (which contains source code analyzers)
+    - and xunit.assert (which contains the class you use to write assertions).
+
+  - xunit.assert
+    - This package contains the xUnit.net assertion library (i.e., the Assert class).
+    - This is a separate NuGet package, because some developers wish to use the xUnit.net framework and test runners, but with a different assertion library.
+    - If you want to extend the Assert class, you should consider using the xunit.assert.source package instead.
+
+  - xunit.analyzers
+    - This package contains the xUnit.net source code analyzers.
+    - This library provides code analysis and code fixers for common issues that are encountered both by test authors and extensibility authors. 
+    - Based on the .NET Compiler Platform ("Roslyn") analyzers which can provide real-time source code analysis inside IDEs (including Visual Studio and Visual Studio Code), as well as compile-time source code analysis.
+
+  - xunit.core
+    - This package contains the core types for the test framework (f.e., FactAttribute).
+    - Referencing this package includes xunit.core.dll and also copies (but does not reference) the appropriate execution libraries (xunit.execution.*.dll) which are required to support discovering and executing tests.
+    - If you wish to use xunit.core.dll for extensibility purposes (for example, to write your own reusable theory data providers), you should reference xunit.extensibility.core instead.
+
+#### Packages for running tests
+  - xunit.runner.console
+    - This package contains the console test runner. 
+    - This runner is capable of running .NET Framework projects from xUnit.net v1 and v2.
+    - To run .NET Core projects from the command line (with dotnet test), please reference xunit.runner.visualstudio instead.
+
+  - xunit.runner.devices
+    - This package contains the devices runner. 
+    - This runner can execute tests on physical and virtualized devices (iOS and Android via Xamarin, and UWP) from xUnit.net v2.
+    - To run UWP projects from within Visual Studio, please reference xunit.runner.visualstudio instead.
+
+  - xunit.runner.msbuild
+    - This package contains the MSBuild test runner.
+    - This runner is capable of running .NET Framework projects from xUnit.net v1 and v2. 
+    - When added, it automatically references the xunit MSBuild target, which can be used in your project file.
+
+  - xunit.runner.visualstudio
+    - This package contains the VSTest runner.
+    - This runner is capable of running
+      - .NET Framework projects from xUnit.net v1 and v2, 
+      - .NET Core and UWP projects projects from xUnit.net v2.
+    - The VSTest framework is used by several 3rd party runner UIs, including:
+      - Visual Studio (via Test Explorer)
+      - Visual Studio Code (via .NET Test Explorer)
+      - dotnet test and dotnet vstest
+      - vstest.console.exe
+
+#### Packages for developers extending xUnit.net
+  - xunit.abstractions
+    - This package is an internal dependency of the test framework
+      - the platform specific execution
+        - DLLs (xunit.execution.*.dll)
+        - and the runner utility libraries.
+      - It defines a stable set of interfaces that these components use to communicate with each other.
+      - As long as the interfaces do not change, each component can be modified without requiring any changes or rebuilds of the other components. 
+        -This allows for a version independent runner API.
+    - You usually won't need to directly reference this package.
+
+  - xunit.assert.source
+    - This package contains the xUnit.net assertion library (i.e., the Assert class) in source form.
+      - The Assert class is a partial class
+        - allows developers to write additional methods available directly from Assert.
+    - When you have multiple unit test libraries in your project:
+      - it is common practice to import this package into a "test utility" library where you write all your custom assertions
+      - and then reference that "test utility" library from your unit test projects.
+
+  - xunit.extensibility.core
+    - This package contains xunit.core.dll. 
+    - It is intended to be used by developers who wish to reference this DLL for extensibility purposes
+      - such as writing your own theory data provider.
+    - This package is used by xunit.core.
+      - It differs in that it does not include or copy the platform specific execution DLLs (xunit.execution.*.dll).
+
+  - xunit.extensibility.execution
+    - This package contains the execution libraries for all Supports (xunit.execution.*.dll).
+    - It is intended to be used by developers who wish to reference this DLL for extensibility purposes
+      - such as creating custom test discovery and execution.
+    -It differs from the xunit.core package in that it adds a reference to the platform specific execution DLL, rather than simply copying to the project's output folder.
+
+  - xunit.runner.utility
+    - This package contains the runner utility libraries for all Supports (xunit.runner.utility.*.dll). 
+    - It is intended to be used by developers who are writing their own test runners
+    - provides a version independent API for discovering and executing tests.
+    - The libraries contained here are both backward and forward compatible for all v1 and v2 xUnit.net tests.
+
+#### Retired Packages
+  - dotnet-xunit
+    - This package was retired as of 2.4 Beta 2.
+    - .NET Core users should use xunit.runner.visualstudio and the dotnet test command line.
+
+  - xunit.execution
+    - This package was renamed to xunit.extensibility.execution as of 2.0 RC1.
+
+  - xunit.extensions
+    - This package was part of xUnit.net v1.x
+    - no longer shipped as part of xUnit.net.
+    - Some of the features of this package were integrated into the xUnit.net core platform, and others were moved to the xUnit.net samples project.
+    - For more information, see upgrading xunit.extensions.
+
+  - xunit.runner.aspnet
+    - This package was retired as of 2.1 Beta 2.
+
+  - xunit.runner.dnx
+    - This package was retired as of 2.3.
+
+  - xunit.runner.visualstudio.win8
+    - This functionality was rolled into xunit.runner.visualstudio.
+
+  - xunit.runner.visualstudio.wpa81
+    - This functionality was rolled into xunit.runner.visualstudio.
+
+  - xunit.runners
+    - This package was part of xUnit.net v1.x-
+    - is no longer shipped as part of xUnit.net
+    - It has been replaced with two new packages:
+      - xunit.runner.console 
+      - xunit.runner.msbuild
+      
+-------------------------------------------------------------------------------------------
+### Multi-targeting on non-Windows Oses
