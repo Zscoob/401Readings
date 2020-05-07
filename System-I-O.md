@@ -26,3 +26,34 @@
       - Writing - transferring data to a stream from a data source.
 
       - Seeking - querying and modifying the current position within a stream.
+  - Depending on the underlying data source or repository, a stream might support only some of these capabilities.
+    - Here are some commonly used stream classes:
+
+      - FileStream – for reading and writing to a file.
+
+      - IsolatedStorageFileStream – for reading and writing to a file in isolated storage.
+
+      - MemoryStream – for reading and writing to memory as the backing store.
+
+      - BufferedStream – for improving performance of read and write operations.
+
+      - NetworkStream – for reading and writing over network sockets.
+
+      - PipeStream – for reading and writing over anonymous and named pipes.
+
+      - CryptoStream – for linking data streams to cryptographic transformations.
+
+## Readers and writers
+  - The System.IO namespace also provides types for reading encoded characters from streams and writing them to streams
+  - Each reader and writer class is associated with a stream, which can be retrieved through the class's BaseStream property.
+    - Here are some commonly used reader and writer classes:
+
+      - BinaryReader and BinaryWriter – for reading and writing primitive data types as binary values.
+
+      - StreamReader and StreamWriter – for reading and writing characters by using an encoding value to convert the characters to and from bytes.
+
+      - StringReader and StringWriter – for reading and writing characters to and from strings.
+
+      - TextReader and TextWriter – serve as the abstract base classes for other readers and writers that read and write characters and strings, but not binary data.
+
+## Asynchronous I/O operations
