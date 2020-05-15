@@ -28,21 +28,21 @@ The following is a list of core terminology dealing with stacks
 ### Stack Visualization
   - An example of a stack follows
          
-      Push                     Pop  
-        \                      /
-       __________________________
-      |     |   Value: "blue"    |
-      |   4 |    Next: 3         |   <--Top
-      |_____|____________________|
-      |     |   Value: "green"   |
-      |   3 |    Next: 2         |
-      |_____|____________________|
-      |     |   Value: "orange"  |
-      |   2 |    Next: 1         |
-      |_____|____________________|
-      |     |   Value: "red"     |
-      |   1 |    Next: null      |
-      |_____|____________________|
+          Push                     Pop  
+            \                      /
+           __________________________
+          |     |   Value: "blue"    |
+          |   4 |    Next: 3         |   <--Top
+          |_____|____________________|
+          |     |   Value: "green"   |
+          |   3 |    Next: 2         |
+          |_____|____________________|
+          |     |   Value: "orange"  |
+          |   2 |    Next: 1         |
+          |_____|____________________|
+          |     |   Value: "red"     |
+          |   1 |    Next: null      |
+          |_____|____________________|
 
   - The topmost item is denoted as the "top"
   - when you push something to the stack it becomes the new "top"
