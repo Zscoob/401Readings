@@ -28,21 +28,21 @@ The following is a list of core terminology dealing with stacks
 ### Stack Visualization
   - An example of a stack follows:
          
-    Push [_|___}            Pop [_|___}  
-      \                      /
-     __|____________________|_______
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              |   <--Top
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________|
+  Push [_|___}          op [_|___}  
+    \                      /
+   __|____________________|__
+  |     |   Value: "blue"    |
+  |   4 |    Next: 3         |   <--Top
+  |_____|____________________|
+  |     |   Value: "green"   |
+  |   3 |    Next: 2         |
+  |_____|____________________|
+  |     |   Value: "orange"  |
+  |   2 |    Next: 1         |
+  |_____|____________________|
+  |     |   Value: "red"     |
+  |   1 |    Next: null      |
+  |_____|____________________|
 
   - The topmost item is denoted as the "top"
   - when you push something to the stack it becomes the new "top"
@@ -59,45 +59,45 @@ The following is a list of core terminology dealing with stacks
     - The first thing you should have is the Node you want to add.
 
 
-    ________________________________
-    |     |   Value: "gray"         |
-    |   5 |    Next: null           | push:
-    |_____|_________________________|
+    ___________________________
+    |     |   Value: "gray"    |
+    |   5 |    Next: null      | push:
+    |_____|____________________|
 
-    ________________________________
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              |   <--Top
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________|
+    ____________________________
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         |   <--Top
+    |_____|____________________|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________|
 
     - Next you assign the "next" property of Node 5 to reference the same Node that top is referencing: Node 4
 
-    ________________________________
-    |     |   Value: "gray"         |
-    |   5 |    Next: 4              | push:
-    |_____|_________________________|
+    ___________________________
+    |     |   Value: "gray"    |
+    |   5 |    Next: 4         | push:
+    |_____|____________________|
 
-    ________________________________
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              |   <--Top
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________|
+    ___________________________
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         |   <--Top
+    |_____|________________ ___|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________|
 
     - At this point the new Node is added to your stack. The next thing to do is to reassign the top reference to the newly added Node
 
@@ -119,89 +119,89 @@ The following is a list of core terminology dealing with stacks
 
   Below is a visual representation of conducting a pop on Node 5 from a stack.
 
-     ________________________________
-    |     |   Value: "gray"         | 
-    |   5 |    Next: 4              |   <--Top
-    |_____|_________________________|    
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              |  
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________|
+     __________________________
+    |     |   Value: "gray"    | 
+    |   5 |    Next: 4         |   <--Top
+    |_____|____________________|    
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         |  
+    |_____|____________________|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________|
 
     - The first step of removing Node 5 is to create a reference named "temp"
       - be sure that "temp" points to the same Node that "top" points to.
     
-    ________________________________
-    |     |   Value: "gray"         |   <--Top
-    |   5 |    Next: 4              |   <--Temp
-    |_____|_________________________|    
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              |  
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________|
+    ___________________________
+    |     |   Value: "gray"    |   <--Top
+    |   5 |    Next: 4         |   <--Temp
+    |_____|____________________|    
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         |  
+    |_____|____________________|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________|
 
   - Once you've created the new reference type you need to reassign "top" to the value that the "next" property is referencing.
   - in the following visual the "next" property is pointing to Node 4.
   - we need to reassign Node 4 to be the "top"
 
-     ________________________________
-    |     |   Value: "gray"         | 
-    |   5 |    Next: 4              | <--temp  
-    |_____|_________________________| 
+     __________________________
+    |     |   Value: "gray"    | 
+    |   5 |    Next: 4         | <--temp  
+    |_____|____________________| 
 
-    ________________________________
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              | <--top 
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________| 
+    ___________________________
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         | <--top 
+    |_____|____________________|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________| 
 
     - Now we can remove Node 5 without affecting the rest of the stack.
     - Be sure to clear out the Next property in the current "temp" reference
       - that ensures that there are no stray references to Node 4 that can interact with the stack.
       - Also allows correct removal.
 
-     ________________________________
-    |     |   Value: "gray"         | 
-    |   5 |    Next: null           | <--temp  
-    |_____|_________________________| 
+     __________________________
+    |     |   Value: "gray"    | 
+    |   5 |    Next: null      | <--temp  
+    |_____|____________________| 
 
-    ________________________________
-    |     |   Value: "blue"         |
-    |   4 |    Next: 3              | <--top 
-    |_____|_________________________|
-    |     |   Value: "green"        |
-    |   3 |    Next: 2              |
-    |_____|_________________________|
-    |     |   Value: "orange"       |
-    |   2 |    Next: 1              |
-    |_____|_________________________|
-    |     |   Value: "red"          |
-    |   1 |    Next: null           |
-    |_____|_________________________| 
+    ___________________________
+    |     |   Value: "blue"    |
+    |   4 |    Next: 3         | <--top 
+    |_____|____________________|
+    |     |   Value: "green"   |
+    |   3 |    Next: 2         |
+    |_____|____________________|
+    |     |   Value: "orange"  |
+    |   2 |    Next: 1         |
+    |_____|____________________|
+    |     |   Value: "red"     |
+    |   1 |    Next: null      |
+    |_____|____________________| 
 
     - next, and finally we return the value of the temp Node that was popped off.
 
@@ -333,21 +333,21 @@ Common terminology for a queue is as follows
     - by doing so we can keep a reference of were rear is
     - can continue to enqueue Nodes into the queue as needed.
 
-    Enqueue
-       |                                                       
-   ____|__________________________________________________________________________
-  |              |               |               |               |               |
-  |      5       |       4       |       3       |       2       |       1       |
-  |______________|_______________|_______________|_______________|_______________|
-  |              |               |               |               |               |
-  |   value =    |   value =     |    value =    |    value =    |   value =     |
-  |   "gray"     |   "blue"      |    "green"    |   "orange"    |    "red"      |
-  |              |               |               |               |               |
-  | Next = null  |   Next = 5    |   Next = 4    |   Next = 3    |   Next = 2    |
-  |______________|_______________|_______________|_______________|_______________|
-        |                                                                |
-        /                                                                 \
-     Rear                                                               Front
+//    Enqueue
+//       |                                                       
+//   ____|__________________________________________________________________________
+//  |              |               |               |               |               |
+//  |      5       |       4       |       3       |       2       |       1       |
+//  |______________|_______________|_______________|_______________|_______________|
+//  |              |               |               |               |               |
+//  |   value =    |   value =     |    value =    |    value =    |   value =     |
+//  |   "gray"     |   "blue"      |    "green"    |   "orange"    |    "red"      |
+//  |              |               |               |               |               |
+//  | Next = null  |   Next = 5    |   Next = 4    |   Next = 3    |   Next = 2    |
+//  |______________|_______________|_______________|_______________|_______________|
+//        |                                                                |
+//        /                                                                 \
+//     Rear                                                               Front
 
   - this is a depiction of successfully adding a Node to a queue by using the enqueue action
 
