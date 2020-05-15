@@ -59,57 +59,58 @@ The following is a list of core terminology dealing with stacks
     - The first thing you should have is the Node you want to add.
 
 
-      ____________________________
-      |     |   Value: "gray"    |
-      |   5 |    Next: null      | push:
-      |_____|____________________|
-
-      ____________________________
-      |     |   Value: "blue"    |
-      |   4 |    Next: 3         |   <--Top
-      |_____|____________________|
-      |     |   Value: "green"   |
-      |   3 |    Next: 2         |
-      |_____|____________________|
-      |     |   Value: "orange"  |
-      |   2 |    Next: 1         |
-      |_____|____________________|
-      |     |   Value: "red"     |
-      |   1 |    Next: null      |
-      |_____|____________________|
+          ____________________________
+          |     |   Value: "gray"    |
+          |   5 |    Next: null      | push:
+          |_____|____________________|
+    
+          ____________________________
+          |     |   Value: "blue"    |
+          |   4 |    Next: 3         |   <--Top
+          |_____|____________________|
+          |     |   Value: "green"   |
+          |   3 |    Next: 2         |
+          |_____|____________________|
+          |     |   Value: "orange"  |
+          |   2 |    Next: 1         |
+          |_____|____________________|
+          |     |   Value: "red"     |
+          |   1 |    Next: null      |
+          |_____|____________________|
 
     - Next you assign the "next" property of Node 5 to reference the same Node that top is referencing: Node 4
 
-      ___________________________
-      |     |   Value: "gray"    |
-      |   5 |    Next: 4         | push:
-      |_____|____________________|
+          ___________________________
+          |     |   Value: "gray"    |
+          |   5 |    Next: 4         | push:
+         |_____|____________________|
 
-      ___________________________
-      |     |   Value: "blue"    |
-      |   4 |    Next: 3         |   <--Top
-      |_____|________________ ___|
-      |     |   Value: "green"   |
-      |   3 |    Next: 2         |
-      |_____|____________________|
-      |     |   Value: "orange"  |
-      |   2 |    Next: 1         |
-      |_____|____________________|
-      |     |   Value: "red"     |
-      |   1 |    Next: null      |
-      |_____|____________________|
+          ___________________________
+          |     |   Value: "blue"    |
+          |   4 |    Next: 3         |   <--Top
+          |_____|________________ ___|
+          |     |   Value: "green"   |
+          |   3 |    Next: 2         |
+          |_____|____________________|
+          |     |   Value: "orange"  |
+          |   2 |    Next: 1         |
+          |_____|____________________|
+          |     |   Value: "red"     |
+          |   1 |    Next: null      |
+          |_____|____________________|
 
     - At this point the new Node is added to your stack. The next thing to do is to reassign the top reference to the newly added Node
 
     - This is a visualization of a successful push of Node 5 onto the stack.
 
     - The pseudo code to push is as follows:
-          ALOGORITHM push(value)
-         // INPUT <-- value to add, wrapped in Node internally
-         // OUTPUT <-- none
-           node = new Node(value)
-            node.next <-- Top
-            top <-- Node
+
+              ALOGORITHM push(value)
+             // INPUT <-- value to add, wrapped in Node internally
+             // OUTPUT <-- none
+               node = new Node(value)
+                node.next <-- Top
+                top <-- Node
 
 ### Pop O(1)
   - Popping a Node off a stack is the action of removing a Node from the top
@@ -184,38 +185,38 @@ The following is a list of core terminology dealing with stacks
       - that ensures that there are no stray references to Node 4 that can interact with the stack.
       - Also allows correct removal.
 
-        ___________________________
-        |     |   Value: "gray"    | 
-        |   5 |    Next: null      | <--temp  
-        |_____|____________________| 
+            ___________________________
+            |     |   Value: "gray"    | 
+            |   5 |    Next: null      | <--temp  
+            |_____|____________________| 
 
-        ___________________________
-        |     |   Value: "blue"    |
-        |   4 |    Next: 3         | <--top 
-        |_____|____________________|
-        |     |   Value: "green"   |
-        |   3 |    Next: 2         |
-        |_____|____________________|
-        |     |   Value: "orange"  |
-        |   2 |    Next: 1         |
-        |_____|____________________|
-        |     |   Value: "red"     |
-        |   1 |    Next: null      |
-        |_____|____________________| 
+            ___________________________
+            |     |   Value: "blue"    |
+            |   4 |    Next: 3         | <--top 
+            |_____|____________________|
+            |     |   Value: "green"   |
+            |   3 |    Next: 2         |
+            |_____|____________________|
+            |     |   Value: "orange"  |
+            |   2 |    Next: 1         |
+            |_____|____________________|
+            |     |   Value: "red"     |
+            |   1 |    Next: null      |
+            |_____|____________________| 
 
     - next, and finally we return the value of the temp Node that was popped off.
 
     - pseudo code for pop is as follows
 
-          ALGORITHM pop()
-          // INPUT <-- No input
-          // OUTPUT <-- value of top Node in stack
-          // EXCEPTION if stack is empty
+              ALGORITHM pop()
+              // INPUT <-- No input
+              // OUTPUT <-- value of top Node in stack
+              // EXCEPTION if stack is empty
 
-            Node temp <-- top
-            top <-- top.next
-            temp.next <-- null
-             return temp.value
+                Node temp <-- top
+                top <-- top.next
+                temp.next <-- null
+                 return temp.value
 
 ### Peek O(1)
   - When conducting a peek you will only be inspecting the top Node of the stack
@@ -266,7 +267,8 @@ Common terminology for a queue is as follows
 
 ### Queue Visualization\
 
-  - The visualization of a Queue is as follows:
+  - The visualization of a Queue is as follows
+  
              Enqueue                                             Dequeue
                  \                                                 /
           ________|_______________________________________________|________
