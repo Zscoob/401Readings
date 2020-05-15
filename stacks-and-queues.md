@@ -83,7 +83,7 @@ The following is a list of core terminology dealing with stacks
           ___________________________
           |     |   Value: "gray"    |
           |   5 |    Next: 4         | push:
-         |_____|____________________|
+          |_____|____________________|
 
           ___________________________
           |     |   Value: "blue"    |
@@ -268,7 +268,7 @@ Common terminology for a queue is as follows
 ### Queue Visualization\
 
   - The visualization of a Queue is as follows
-  
+
              Enqueue                                             Dequeue
                  \                                                 /
           ________|_______________________________________________|________
