@@ -26,7 +26,7 @@ The following is a list of core terminology dealing with stacks
     - This means that the last item added to the stack will be the first item popped out of the stack.
 
 ### Stack Visualization
-  - An example of a stack follows:
+  - An example of a stack follows
          
       Push                     Pop  
         \                      /
