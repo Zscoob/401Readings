@@ -267,22 +267,21 @@ Common terminology for a queue is as follows
 ### Queue Visualization\
 
   - The visualization of a Queue is as follows:
-
-             Enqueue                                             Dequeue
-                 \                                                 /
-          ________|_______________________________________________|________
-          |               |               |               |               |
-          |       4       |       3       |       2       |       1       |
-          |_______________|_______________|_______________|_______________|
-          |               |               |               |               |
-          |   value =     |    value =    |    value =    |   value =     |
-          |   "blue"      |    "green"    |   "orange"    |    "red"      |
-          |               |               |               |               |
-          |  Next = null  |   Next = 4    |   Next = 3    |   Next = 2    |
-          |_______________|_______________|_______________|_______________|
-                  |                                              |
-                 /                                                \
-               Rear                                              Front
+            - Enqueue                                             Dequeue
+            -     \                                                 /
+        -  ________|_______________________________________________|________
+        -  |               |               |               |               |
+        -  |       4       |       3       |       2       |       1       |
+        -  |_______________|_______________|_______________|_______________|
+        -  |               |               |               |               |
+        -  |   value =     |    value =    |    value =    |   value =     |
+        -  |   "blue"      |    "green"    |   "orange"    |    "red"      |
+        -  |               |               |               |               |
+        -  |  Next = null  |   Next = 4    |   Next = 3    |   Next = 2    |
+        -  |_______________|_______________|_______________|_______________|
+        -          |                                              |
+        -         /                                                \
+        -       Rear                                              Front
 
 ### Enqueue O(1)
 
