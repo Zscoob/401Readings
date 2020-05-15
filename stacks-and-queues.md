@@ -237,13 +237,13 @@ The following is a list of core terminology dealing with stacks
 
 ### IsEmpty O(1)
 
-  - Pseudocode for isEmpty :
+  - Pseudocode for isEmpty 
 
-      ALGORITHM isEmpty()
-      // INPUT <-- none
-      // OUTPUT <-- boolean
-
-      return top = NULL
+          ALGORITHM isEmpty()
+          // INPUT <-- none
+          // OUTPUT <-- boolean
+    
+          return top = NULL
 
 ### What is a Queue
 
@@ -265,7 +265,7 @@ Common terminology for a queue is as follows
   - Last In Last Out
     - This means the last item in the queue will be the last item out of the queue
 
-### Queue Visualization\
+### Queue Visualization
 
   - The visualization of a Queue is as follows
 
@@ -368,7 +368,7 @@ Common terminology for a queue is as follows
   - This is done with an O(1) operation in time because it doesnt matter how many other items are in the queue.
   - you are always removing the "front" node of the queue.
 
-  -good practice dictates you check isEmpty before conducting dequeue to avoid any exceptions being raised.
+  - good practice dictates you check isEmpty before conducting dequeue to avoid any exceptions being raised.
     - you can also wrap the call in a try/catch block
 
   - Walkthrough for removing a Node from a queue is as follows:
